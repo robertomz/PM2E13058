@@ -19,10 +19,19 @@
             android:layout_margin="5dp"
             android:text="Atras" />
 
+        <SearchView
+            android:id="@+id/SearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Buscar Contacto"
+            android:layout_margin="5dp"
+            android:iconifiedByDefault="false" />
+
         <ListView
             android:id="@+id/listaContactos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:listSelector="#A4DAD2" />
 
     </LinearLayout>

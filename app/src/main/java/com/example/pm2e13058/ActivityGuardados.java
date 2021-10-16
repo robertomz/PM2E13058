@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.pm2e13058.config.SQLiteConn;
@@ -26,12 +27,17 @@ public class ActivityGuardados extends AppCompatActivity {
     ArrayList<Contactos> lista;
     ArrayList<String> ArregloContactos;
 
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardados);
 
         Button btnAtras = (Button) findViewById(R.id.btnAtras);
+        searchView = (SearchView) findViewById(R.id.SearchView);
+
+        ArregloContactos = new ArrayList<String>();
 
         btnAtras.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), ActivityInsert.class);
@@ -45,8 +51,22 @@ public class ActivityGuardados extends AppCompatActivity {
 
         ObtenerContactos();
 
-        ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ArregloContactos);
+        ArrayAdapter adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ArregloContactos);
         listaContactos.setAdapter(adp);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adp.getFilter().filter(newText);
+
+                return false;
+            }
+        });
 
         listaContactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
